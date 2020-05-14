@@ -56,8 +56,8 @@ class App extends Component {
                 <Header currentUser={this.state.currentUser}/>
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
-                    <Route path="/shop" component={ShopPage}/>
-                    <Route path="/signin" component={SignInAndSignOutPage}/>
+                    <Route exact path="/shop" component={ShopPage}/>
+                    <Route exact path="/signin" component={SignInAndSignOutPage}/>
                 </Switch>
             </div>
         );
