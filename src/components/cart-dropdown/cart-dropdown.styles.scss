@@ -15,7 +15,10 @@
     height: 240px;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+  }
+
+  .cart-dropdown-scroll {
+    overflow-y: scroll;
   }
 
   button {
