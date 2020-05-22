@@ -8,6 +8,12 @@ export const selectCartItems = createSelector(
     (cart) => cart.cartItems
 );
 
+//? Get state cart hidden
+export const selectCartHidden = createSelector(
+    [selectCart],
+    (cart) => cart.hidden
+);
+
 //? Get state total cart items quantity
 export const selectCartItemsCount = createSelector(
     [selectCartItems],
@@ -17,3 +23,14 @@ export const selectCartItemsCount = createSelector(
             0
         )
 );
+
+//? get
+export const selectCartTotal = createSelector(
+    [selectCartItems],
+    cartItems =>
+        cartItems.reduce(
+            (accumulatedQuantity, cartItem) =>
+                accumulatedQuantity + cartItem.quantity * cartItem.price,
+            0
+        )
+)
