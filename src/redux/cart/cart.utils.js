@@ -10,9 +10,10 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
                 : cartItem
         )
     }
+
     // ? Add quantity property in the first around since if block wont run when its a new item
     return [...cartItems, {...cartItemToAdd, quantity: 1}]
-}
+};
 
 export const removeItemFromCart = (cartItems, cartItemToRemove) => {
     const existingCartItem = cartItems.find(
