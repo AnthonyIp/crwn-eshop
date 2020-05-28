@@ -21,7 +21,7 @@ const CollectionPage = ({collection}) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    console.log('props of the component:', ownProps);
+    // console.log('props of the component:', ownProps);
     return ({
         collection: selectCollection(ownProps.match.params.collectionId)(state)
     })
