@@ -10,7 +10,7 @@ export const selectCollections = createSelector(
 
 export const selectCollectionsForPreview = createSelector(
     [selectCollections],
-    collections => Object.keys(collections).map(key => collections[key])
+    collections => collections ? Object.keys(collections).map(key => collections[key]) : []
 );
 
 // ? get collection of specific category
@@ -19,7 +19,7 @@ export const selectCollection = collectionUrlParam => {
     // console.log(collectionUrlParam);
     return createSelector(
         [selectCollections],
-        collections => collections[collectionUrlParam]
+        collections => collections ? collections[collectionUrlParam] : null
     )
 };
 
