@@ -8,7 +8,7 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
             cartItem.id === cartItemToAdd.id
                 ? {...cartItem, quantity: cartItem.quantity + 1}
                 : cartItem
-        )
+        );
     }
 
     // ? Add quantity property in the first around since if block wont run when its a new item
