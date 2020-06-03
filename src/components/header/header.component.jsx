@@ -43,7 +43,7 @@ const Header = ({currentUser, hidden, signOutStart}) => {
     );
 };
 
-// ? it's the same but refactored with createStructuredSelector
+// ? it's the same as below but refactored with createStructuredSelector
 // const mapStateToProps = (state) => ({
 //     currentUser: selectCurrentUser(state),
 //     hidden: selectCartHidden(state)
