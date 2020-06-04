@@ -1,13 +1,17 @@
-import React, {useState} from 'react';
-import {connect} from 'react-redux';
-import FormInput from '../form-input/form-input.component';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
-import CustomButton from "../custom-button/custom-button.component";
-import {emailSignInStart, googleSignInStart} from "../../redux/user/user.actions";
+import FormInput from '../form-input/form-input.component';
+import CustomButton from '../custom-button/custom-button.component';
+
+import {
+  googleSignInStart,
+  emailSignInStart
+} from '../../redux/user/user.actions';
 
 import './sign-in.styles.scss';
 
-const SignIn = ({emailSignInStart}) => {
+const SignIn = ({emailSignInStart, googleSignInStart}) => {
 
     const [userCredentials, setCredentials] = useState({email: '', password: ''});
     const {email, password} = userCredentials;
@@ -45,8 +49,9 @@ const SignIn = ({emailSignInStart}) => {
                 />
                 <div className="buttons">
                     <CustomButton type="submit">Sign In</CustomButton>
-                    <CustomButton type="button" onClick={googleSignInStart} isGoogleSignIn>Sign In With
-                                                                                           Google </CustomButton>
+                    <CustomButton type="button" onClick={googleSignInStart} isGoogleSignIn>
+                        Sign In With Google
+                    </CustomButton>
                 </div>
             </form>
         </div>

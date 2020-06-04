@@ -9,5 +9,5 @@ export default function* rootSaga() {
         call(shopSagas),
         call(userSagas),
         call(cartSagas)
-    ])
+    ]);
 }

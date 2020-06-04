@@ -1,19 +1,22 @@
-import React, {useEffect} from 'react';
-import './App.css';
-import {Redirect, Route, Switch} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {createStructuredSelector} from 'reselect';
+import React, { useEffect } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import HomePage from './pages/homepage/homepage.component'
-import ShopPage from "./pages/shop/shop.component";
-import SignInAndSignOutPage from "./pages/sign-in-and-sign-out/sign-in-and-sign-out.component";
-import CheckoutPage from "./pages/checkout/checkout.component";
+import './App.css';
+
+import HomePage from './pages/homepage/homepage.component';
+import ShopPage from './pages/shop/shop.component';
+import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
+import CheckoutPage from './pages/checkout/checkout.component';
+
 import Header from './components/header/header.component';
-import {selectCurrentUser} from './redux/user/user.selectors';
-import {checkUserSession} from "./redux/user/user.actions";
+
+import { selectCurrentUser } from './redux/user/user.selectors';
+import { checkUserSession } from './redux/user/user.actions';
 // import {addCollectionAndDocuments } from './firebase/firebase.utils.js';
 
-const App = ({checkUserSession, currentUser/*, collectionsArray*/}) => {
+const App = ({checkUserSession, currentUser/*, collectionsArray*/ }) => {
 
     useEffect(() => {
         checkUserSession();
@@ -32,7 +35,7 @@ const App = ({checkUserSession, currentUser/*, collectionsArray*/}) => {
                     currentUser ? (
                         <Redirect to='/'/>
                     ) : (
-                        <SignInAndSignOutPage/>
+                        <SignInAndSignUpPage/>
                     )}/>
 
             </Switch>
@@ -46,10 +49,11 @@ const mapStateToProps = createStructuredSelector({
     // collectionsArray: selectCollectionsForPreview
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    checkUserSession: () => dispatch(checkUserSession())
-})
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+});
 
 export default connect(
-    mapStateToProps, mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(App);
