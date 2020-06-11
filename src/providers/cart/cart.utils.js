@@ -11,7 +11,6 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
         );
     }
 
-    // ? Add quantity property in the first around since if block wont run when its a new item
     return [...cartItems, {...cartItemToAdd, quantity: 1}];
 };
 
@@ -20,15 +19,29 @@ export const removeItemFromCart = (cartItems, cartItemToRemove) => {
         cartItem => cartItem.id === cartItemToRemove.id
     );
 
-    //? if its the last item, we filter it out of the array cartItems
     if (existingCartItem.quantity === 1) {
         return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id);
     }
 
-    //? we return the cartItem -1 quantity and the rest remain untouched
     return cartItems.map(cartItem =>
         cartItem.id === cartItemToRemove.id
             ? {...cartItem, quantity: cartItem.quantity - 1}
             : cartItem
     );
 };
+
+export const filterItemFromCart = (cartItems, item) =>
+    cartItems.filter(cartItem => cartItem.id !== item.id);
+
+export const getCartItemsCount = cartItems =>
+    cartItems.reduce(
+        (accumalatedQuantity, cartItem) => accumalatedQuantity + cartItem.quantity,
+        0
+    );
+
+export const getCartTotal = cartItems =>
+    cartItems.reduce(
+        (accumalatedQuantity, cartItem) =>
+            accumalatedQuantity + cartItem.quantity * cartItem.price,
+        0
+    );
