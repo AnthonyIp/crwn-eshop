@@ -1,0 +1,18 @@
+.contact-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .form-contact {
+    width: 50%;
+    @media screen and (max-width: 800px) {
+      width: 80%;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
