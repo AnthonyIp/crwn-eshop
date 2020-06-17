@@ -12,6 +12,7 @@ const ContactPage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
     };
 
     const handleChangeSubject = event => {

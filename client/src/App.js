@@ -1,25 +1,27 @@
-import React, { useEffect } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-
-// import './App.css';
-
-import HomePage from './pages/homepage/homepage.component';
-import ShopPage from './pages/shop/shop.component';
-import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import CheckoutPage from './pages/checkout/checkout.component';
-import ContactPage from "./pages/contact/contact.component";
+import React, {lazy, Suspense, useEffect} from 'react';
+import {Redirect, Route, Switch} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
 
 import Header from './components/header/header.component';
+import Spinner from './components/spinner/spinner.component';
+import ErrorBoundary from './components/error-boundary/error-boundary.component';
 
-import { selectCurrentUser } from './redux/user/user.selectors';
-import { checkUserSession } from './redux/user/user.actions';
-// import {addCollectionAndDocuments } from './firebase/firebase.utils.js';
-
+import {selectCurrentUser} from './redux/user/user.selectors';
+import {checkUserSession} from './redux/user/user.actions';
 import './global.styles.scss';
 
-const App = ({checkUserSession, currentUser/*, collectionsArray*/ }) => {
+// import './App.css';
+// import {addCollectionAndDocuments } from './firebase/firebase.utils.js';
+
+const HomePage = lazy(() => import('./pages/homepage/homepage.component'));
+const ShopPage = lazy(() => import('./pages/shop/shop.component'));
+const SignInAndSignUpPage = lazy(() => import('./pages/sign-in-and-sign-up/sign-in-and-sign-up.component'));
+const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
+const ContactPage = lazy(() => import('./pages/contact/contact.component'));
+
+
+const App = ({checkUserSession, currentUser/*, collectionsArray*/}) => {
 
     useEffect(() => {
         checkUserSession();
@@ -31,17 +33,20 @@ const App = ({checkUserSession, currentUser/*, collectionsArray*/ }) => {
         <div className="App">
             <Header/>
             <Switch>
-                <Route exact path="/" component={HomePage}/>
-                <Route path="/shop" component={ShopPage}/>
-                <Route path="/contact" component={ContactPage}/>
-                <Route exact path="/checkout" component={CheckoutPage}/>
-                <Route exact path="/signin" render={() =>
-                    currentUser ? (
-                        <Redirect to='/'/>
-                    ) : (
-                        <SignInAndSignUpPage/>
-                    )}/>
-
+                <ErrorBoundary>
+                    <Suspense fallback={<Spinner/>}>
+                        <Route exact path="/" component={HomePage}/>
+                        <Route path="/shop" component={ShopPage}/>
+                        <Route path="/contact" component={ContactPage}/>
+                        <Route exact path="/checkout" component={CheckoutPage}/>
+                        <Route exact path="/signin" render={() =>
+                            currentUser ? (
+                                <Redirect to='/'/>
+                            ) : (
+                                <SignInAndSignUpPage/>
+                            )}/>
+                    </Suspense>
+                </ErrorBoundary>
             </Switch>
         </div>
     );
@@ -54,10 +59,10 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-  checkUserSession: () => dispatch(checkUserSession())
+    checkUserSession: () => dispatch(checkUserSession())
 });
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(App);
